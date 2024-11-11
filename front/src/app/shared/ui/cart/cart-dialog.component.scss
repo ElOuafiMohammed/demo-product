@@ -1,0 +1,46 @@
+.product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.product span {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product .quantity-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.product input.quantity-input {
+  width: 60px;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.cart-total {
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+.total-cost {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.total-label {
+  color: #333;
+}
+
+.total-amount {
+  color: #2e7d32;
+  font-size: 1.3em;
+}

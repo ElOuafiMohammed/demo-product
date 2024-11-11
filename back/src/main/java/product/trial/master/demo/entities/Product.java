@@ -68,7 +68,6 @@ public class Product {
     private LocalDateTime updatedAt;
 
 
-    // Custom setter with validation for quantity
     public void setQuantity(Integer quantity) {
         if (quantity < 0) {
             throw new IllegalArgumentException("Quantity cannot be negative.");

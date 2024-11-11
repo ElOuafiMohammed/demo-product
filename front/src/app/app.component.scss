@@ -14,35 +14,6 @@
   font-weight: bold; /* Optional: make count stand out */
 }
 
-.product {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  gap: 10px; /* Added gap to ensure spacing between elements is consistent */
-}
-
-.product span {
-  flex-grow: 1;
-  display: flex;
-  justify-content: space-between; /* Ensure the name and price align properly */
-}
-
-.product .quantity-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* Align the quantity input to the left */
-}
-
-.product input.quantity-input {
-  width: 60px; /* Set a fixed width for quantity input to align properly */
-  text-align: center; /* Ensure numbers are centered */
-  margin-left: 5px; /* Add some spacing between quantity label and input box */
-}
-
-button.p-button-danger {
-  margin-left: 10px;
-}
 
 .p-toolbar-group-end {
   display: flex;
@@ -67,24 +38,4 @@ button.p-button-danger {
 
 .p-toolbar-group-end {
   justify-content: flex-end; /* Align the cart icon and count to the right */
-}
-.cart-total {
-  margin-top: 20px;
-  padding-top: 10px;
-}
-
-.total-cost {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.total-label {
-  color: #333;
-}
-
-.total-amount {
-  color: #2e7d32; /* Green color for the total amount */
-  font-size: 1.3em;
 }

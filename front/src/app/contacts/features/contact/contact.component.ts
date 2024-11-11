@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from "@angular/core";
+import { Component} from "@angular/core";
 import { ProductFormComponent } from "app/products/ui/product-form/product-form.component";
 import { ButtonModule } from "primeng/button";
 import { DataViewModule } from 'primeng/dataview';
@@ -14,7 +14,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule, CommonModule, DataViewModule, ButtonModule, DialogModule, ProductFormComponent],
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent {
   contactForm: FormGroup;
   successMessage = '';
 
@@ -25,9 +25,6 @@ export class ContactComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    // You can handle other logic in ngOnInit if needed
-  }
 
   onSubmit(): void {
     if (this.contactForm.valid) {
