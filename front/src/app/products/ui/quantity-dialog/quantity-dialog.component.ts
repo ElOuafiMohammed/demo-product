@@ -26,6 +26,7 @@ export class QuantityDialogComponent {
   confirmAddToCart() {
     if (this.selectedProduct && this.quantity <= this.selectedProduct.quantity) {
       this.confirm.emit({ ...this.selectedProduct, quantity: this.quantity });
+      this.quantity = 1;
     } else if (this.selectedProduct) {
       this.messageService.add({ severity: 'error', summary: 'Produit ajouté', detail: `Quantité demandée dépasse le stock disponible. Stock actuel: ${this.selectedProduct.quantity}` });
     }
