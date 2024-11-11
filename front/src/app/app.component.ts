@@ -1,5 +1,5 @@
 import {
-  Component,
+  Component, inject,
 } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SplitterModule } from 'primeng/splitter';
@@ -21,12 +21,13 @@ import {FormsModule} from "@angular/forms";
   imports: [FormsModule,ButtonModule, DialogModule, CommonModule, RouterModule, SplitterModule, ToolbarModule, PanelMenuComponent, CartDialogComponent],
 })
 export class AppComponent {
+  private readonly cartService = inject(CartService);
   title = 'ALTEN SHOP';
   cartProductCount = 0;
   selectedProducts: Product[] = [];
   isCartVisible = false;
 
-  constructor(private cartService: CartService) {
+  constructor() {
     this.cartService.selectedProducts$.subscribe(products => {
       this.selectedProducts = products;
       this.cartProductCount = products.length;
