@@ -11,6 +11,8 @@ import {CartService} from "../../data-access/cart.service";
 import {FormsModule} from "@angular/forms";
 import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
+import {FilterSectionComponent} from "../../ui/filter-section/filter-section.component";
+import {QuantityDialogComponent} from "../../ui/quantity-dialog/quantity-dialog.component";
 
 const emptyProduct: Product = {
   id: 0,
@@ -34,22 +36,21 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [ToastModule, FormsModule, CommonModule, DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent],
+  imports: [FilterSectionComponent, QuantityDialogComponent, ToastModule, FormsModule, CommonModule, DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
   private readonly cartService = inject(CartService);
-  private readonly messageService = inject(MessageService);  // Inject MessageService
+  private readonly messageService = inject(MessageService);
 
   public readonly products = this.productsService.products;
   public readonly editedProduct = signal<Product>(emptyProduct);
 
   public isDialogVisible = false;
   public isCreation = false;
-  // Quantity dialog state
   public isQuantityDialogVisible = false;
   public selectedProduct: Product | null = null;
-  public quantity: number = 1;  // Default quantity
+  public quantity: number = 1;
 
   // Filter text and pagination
   public filterNameOrCategory: string = '';
@@ -63,85 +64,25 @@ export class ProductListComponent implements OnInit {
     this.productsService.get().subscribe();
   }
 
-
   get filteredProducts(): Product[] {
     const filter = this.filterNameOrCategory.toLowerCase();
-
     return this.products().filter(product => {
-      // Filter by name or category
       const matchesText = product.name.toLowerCase().includes(filter) || product.category.toLowerCase().includes(filter);
-
-      // Filter by price
       const matchesPrice = this.filterPrice === null || product.price >= this.filterPrice;
-
-      // Filter by quantity
       const matchesQuantity = this.filterQuantity === null || product.quantity >= this.filterQuantity;
-
-
-      // Filter by inventory status
       const matchesInventoryStatus = !this.filterInventoryStatus || product.inventoryStatus === this.filterInventoryStatus;
-
       return matchesText && matchesPrice && matchesQuantity && matchesInventoryStatus;
     });
   }
 
-  // Pagination change event handler
   onPageChange(event: any) {
     this.first = event.first;
     this.pageSize = event.rows;
   }
 
-  // To track items efficiently in the list view
   trackByFn(index: number, product: Product): number {
     return product.id;
   }
-
-  public onCreate() {
-    this.isCreation = true;
-    this.isDialogVisible = true;
-    this.editedProduct.set(emptyProduct);
-  }
-
-  public openQuantityDialog(product: Product) {
-    this.selectedProduct = product;
-    this.quantity = 1;  // Default quantity to 1
-    this.isQuantityDialogVisible = true;
-  }
-
-  public confirmAddToCart() {
-    if (this.selectedProduct) {
-      // Check if the selected quantity is greater than the available stock
-      if (this.quantity <= this.selectedProduct.quantity) {
-        const productToAdd = { ...this.selectedProduct, quantity: this.quantity };
-        this.cartService.addProduct(productToAdd);
-        this.closeQuantityDialog();
-      } else {
-        // Show error message if quantity exceeds available stock
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Quantité Insuffisante',
-          detail: `Quantité demandée dépasse le stock disponible. Stock actuel: ${this.selectedProduct.quantity}`,
-        });      }
-    }
-  }
-  public closeQuantityDialog() {
-    this.isQuantityDialogVisible = false;
-  }
-  public onUpdate(product: Product) {
-    this.isCreation = false;
-    this.isDialogVisible = true;
-    this.editedProduct.set(product);
-  }
-
-  public onDelete(product: Product) {
-    this.cartService.removeProduct(product.id);
-
-    this.productsService.delete(product.id).subscribe(() => {
-    }, error => {
-      console.error('Failed to delete product:', error);
-    });
-  }
-
   public onSave(product: Product) {
     if (this.isCreation) {
       this.productsService.create(product).subscribe();
@@ -150,12 +91,58 @@ export class ProductListComponent implements OnInit {
     }
     this.closeDialog();
   }
-
+  private closeDialog() {
+    this.isDialogVisible = false;
+  }
   public onCancel() {
     this.closeDialog();
   }
+  public onCreate() {
+    this.isCreation = true;
+    this.isDialogVisible = true;
+    this.editedProduct.set(emptyProduct);
+  }
 
-  private closeDialog() {
-    this.isDialogVisible = false;
+  public onUpdate(product: Product) {
+    this.isCreation = false;
+    this.isDialogVisible = true;
+    this.editedProduct.set(product);
+  }
+
+  public onDelete(product: Product) {
+    this.cartService.removeProduct(product.id); // Remove product from cart first
+
+    this.productsService.delete(product.id).subscribe(() => {
+      // Optionally, you can add a success message here or any additional logic
+    }, error => {
+      console.error('Failed to delete product:', error);
+    });
+  }
+  public openQuantityDialog(product: Product) {
+    this.selectedProduct = product;
+    this.quantity = 1;  // Default quantity to 1
+    this.isQuantityDialogVisible = true;
+  }
+
+  public handleQuantityDialogConfirm(product: Product) {
+    this.cartService.addToCart(product);
+    this.messageService.add({ severity: 'success', summary: 'Produit ajouté', detail: `${product.name} ajouté au panier avec ${product.quantity} articles` });
+    this.isQuantityDialogVisible = false;
+  }
+
+  public handleQuantityDialogCancel() {
+    this.isQuantityDialogVisible = false;
+  }
+
+  public onFilterChange(filter: {
+    nameOrCategory: string;
+    price: number | null;
+    quantity: number | null;
+    inventoryStatus: string | null;
+  }) {
+    this.filterNameOrCategory = filter.nameOrCategory;
+    this.filterPrice = filter.price;
+    this.filterQuantity = filter.quantity;
+    this.filterInventoryStatus = filter.inventoryStatus;
   }
 }

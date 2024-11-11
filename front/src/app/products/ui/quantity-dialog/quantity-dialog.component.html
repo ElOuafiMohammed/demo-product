@@ -1,0 +1,13 @@
+<p-dialog [(visible)]="isVisible" [style]="{ width: '30vw' }" header="Modifier la quantité" [modal]="true" [closable]="false">
+  <div class="quantity-dialog-content-horizontal">
+    <label for="quantity" class="quantity-label">Quantité :</label>
+    <input type="number" id="quantity" [(ngModel)]="quantity" pInputText min="1" class="quantity-input"/>
+  </div>
+
+  <p-footer>
+    <div class="dialog-footer-buttons">
+      <button pButton label="Annuler" icon="pi pi-times" (click)="closeDialog()" class="p-button-text btn-cancel"></button>
+      <button pButton label="Confirmer" icon="pi pi-check" (click)="confirmAddToCart()" class="p-button-text btn-confirm"></button>
+    </div>
+  </p-footer>
+</p-dialog>

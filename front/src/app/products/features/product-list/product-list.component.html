@@ -2,45 +2,8 @@
 
 <p-button label="Créer produit" (onClick)="onCreate()" class="block text-center"/>
 
-<!-- Filter Section -->
-<div class="filters-container  mx-auto p-4 bg-white shadow-lg rounded-lg">
+<app-filter-section (filterChanged)="onFilterChange($event)"></app-filter-section>
 
-  <!-- Filter by Name or Category -->
-  <div class="filter-item mb-4">
-    <input
-      type="text"
-      pInputText
-      [(ngModel)]="filterNameOrCategory"
-      placeholder="Filtrer par nom ou catégorie"
-      class="filter-input"
-    />
-  </div>
-
-  <!-- Filter by Price and Quantity -->
-  <div class="filter-item mb-4 flex space-x-4">
-    <input
-      type="number"
-      pInputText
-      [(ngModel)]="filterPrice"
-      placeholder="Filtrer par prix minimum"
-      class="filter-input"
-    />
-    <input
-      type="number"
-      pInputText
-      [(ngModel)]="filterQuantity"
-      placeholder="Filtrer par quantité minimum"
-      class="filter-input"
-    />
-
-    <select pInputText [(ngModel)]="filterInventoryStatus" class="filter-input">
-      <option value=""  disabled selected >Filtrer par statut de stock</option>
-      <option value="INSTOCK">En stock</option>
-      <option value="LOWSTOCK">Stock faible</option>
-      <option value="OUTOFSTOCK">Rupture de stock</option>
-    </select>
-  </div>
-</div>
 
 <!-- DataView with Pagination and Filtering -->
 <p-dataView #dv
@@ -110,26 +73,6 @@
   />
 </p-dialog>
 
-<!-- Quantity Dialog -->
-<p-dialog [(visible)]="isQuantityDialogVisible"
-          [style]="{ width: '30vw' }"
-          header="Modifier la quantité"
-          [modal]="true"
-          [closable]="false">
-
-  <!-- Dialog Content -->
-  <div class="quantity-dialog-content-horizontal">
-    <label for="quantity" class="quantity-label">Quantité :</label>
-    <input type="number" id="quantity" [(ngModel)]="quantity" pInputText min="1" class="quantity-input"/>
-  </div>
-
-  <!-- Dialog Footer with Buttons -->
-  <p-footer>
-    <div class="dialog-footer-buttons">
-      <button pButton label="Annuler" icon="pi pi-times" (click)="closeQuantityDialog()" class="p-button-text btn-cancel" ></button>
-      <button pButton label="Confirmer" icon="pi pi-check" (click)="confirmAddToCart()" class="p-button-text btn-confirm"></button>
-    </div>
-  </p-footer>
-
-</p-dialog>
+<app-quantity-dialog [isVisible]="isQuantityDialogVisible" [selectedProduct]="selectedProduct" [quantity]="quantity"
+                     (confirm)="handleQuantityDialogConfirm($event)" (cancel)="handleQuantityDialogCancel()"></app-quantity-dialog>
 <p-toast></p-toast>

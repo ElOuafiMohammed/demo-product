@@ -10,7 +10,7 @@ export class CartService {
   selectedProducts$ = this.selectedProductsSubject.asObservable();
 
   // Add product to the cart
-  addProduct(product: Product) {
+  addToCart(product: Product) {
     const currentProducts = this.selectedProductsSubject.value;
     const existingProductIndex = currentProducts.findIndex(p => p.id === product.id);
 
@@ -44,7 +44,7 @@ export class CartService {
       this.selectedProductsSubject.next(updatedProducts);
     }
   }
-  
+
   // Remove product from the cart by ID
   removeProduct(productId: number) {
     const currentProducts = this.selectedProductsSubject.value.filter(p => p.id !== productId);

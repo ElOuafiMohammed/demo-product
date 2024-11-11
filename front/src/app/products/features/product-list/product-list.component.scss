@@ -1,10 +1,9 @@
 :host {
-    display: block;
-    height: 100%;
-    overflow: auto;
+  display: block;
+  height: 100%;
+  overflow: auto;
 }
 
-/* Example styles */
 .text-success {
   color: green;
 }
@@ -22,29 +21,23 @@
   color: #f39c12;
 }
 
-
-
-
-/* Grid layout for 2 products per row */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
-  gap: 12px; /* Further reduced space between cards */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 .product-grid .p-card {
   box-sizing: border-box;
-  width: 100%; /* Ensure cards take full width within the grid cell */
+  width: 100%;
 }
 
-/* Adjust the grid for smaller screens (optional for responsiveness) */
 @media (max-width: 768px) {
   .product-grid {
-    grid-template-columns: 1fr; /* 1 column on smaller screens */
+    grid-template-columns: 1fr;
   }
 }
 
-/* General styles */
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f4f4f4;
@@ -52,7 +45,6 @@ body {
   padding: 0;
 }
 
-/* Title */
 .text-center {
   text-align: center;
 }
@@ -62,7 +54,7 @@ body {
 }
 
 .text-3xl {
-  font-size: 1.25rem; /* Reduced font size for titles */
+  font-size: 1.25rem;
 }
 
 .font-bold {
@@ -73,15 +65,14 @@ body {
   color: #333;
 }
 
-/* Container for filters */
 .filters-container {
   gap: 0.25rem;
   width: 100%;
-  max-width: 700px; /* Reduced max-width of the filter container */
+  max-width: 700px;
   margin: 0 auto;
-  padding: 1rem; /* Reduced padding */
+  padding: 1rem;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -89,16 +80,16 @@ body {
 }
 
 p-dataView {
-  margin-top: 0; /* Remove any default margin */
-  padding-top: 0; /* Ensure no extra padding */
+  margin-top: 0;
+  padding-top: 0;
 }
-/* Input field styles */
+
 .filter-input {
   width: 100%;
-  padding: 6px 8px; /* Smaller padding */
-  font-size: 0.85rem; /* Smaller font size */
+  padding: 6px 8px;
+  font-size: 0.85rem;
   border: 1px solid #ddd;
-  border-radius: 4px; /* Even smaller border radius */
+  border-radius: 4px;
   background-color: #f9f9f9;
   transition: all 0.2s ease;
 }
@@ -109,15 +100,14 @@ p-dataView {
   background-color: #fff;
 }
 
-/* Button Custom Styling */
 .create-button {
   width: 100%;
-  max-width: 220px; /* Further reduced max width */
+  max-width: 220px;
   background-color: #00aaff;
   border: none;
-  border-radius: 20px; /* Smaller border radius */
-  padding: 8px 14px; /* Smaller padding */
-  font-size: 14px; /* Smaller font size */
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 14px;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -136,20 +126,18 @@ p-dataView {
   border: none;
 }
 
-/* Flexbox Layout for Multiple Inputs */
 .flex {
   display: flex;
 }
 
 .space-x-4 {
-  gap: 0.6rem; /* Reduced space between inputs */
+  gap: 0.6rem;
 }
 
-/* Responsiveness */
 @media (max-width: 768px) {
   .filters-container {
-    max-width: 100%; /* Full width on mobile */
-    padding: 0.75rem; /* Reduced padding for mobile */
+    max-width: 100%;
+    padding: 0.75rem;
   }
 
   .flex {
@@ -157,46 +145,39 @@ p-dataView {
   }
 
   .filter-input {
-    margin-bottom: 0.6rem; /* Smaller margin between inputs */
+    margin-bottom: 0.6rem;
   }
 
   .filter-item {
-    margin-bottom: 0.5rem; /* Smaller vertical margin */
+    margin-bottom: 0.5rem;
   }
 }
 
-
-
-
-/* Centering the content and styling the input field */
-/* Ensure proper centering of content in the horizontal dialog container */
 .quantity-dialog-content-horizontal {
   display: flex;
-  justify-content: center;  /* Center items horizontally */
-  align-items: center;      /* Center items vertically */
-  gap: 10px;                /* Space between label and input */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Style for label to ensure proper alignment */
 .quantity-label {
   font-size: 1.1rem;
   font-weight: bold;
   color: #333;
-  text-align: center;  /* Center the text of the label */
-  margin: 0;  /* Remove any margin to avoid misalignment */
+  text-align: center;
+  margin: 0;
 }
 
-/* Style for input field */
 .quantity-input {
-  width: 60px;  /* Adjust width to fit your design */
-  text-align: center;  /* Center text inside the input */
+  width: 60px;
+  text-align: center;
   padding: 8px;
   font-size: 1rem;
   border-radius: 4px;
   border: 1px solid #ccc;
   outline: none;
   display: block;
-  margin: 0; /* Remove default margin */
+  margin: 0;
 }
 
 .quantity-input:focus {
@@ -204,57 +185,53 @@ p-dataView {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-
-/* Styling for footer buttons */
 .dialog-footer-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 20px; /* Increased the gap between the buttons */
+  gap: 20px;
   padding: 10px 20px;
 }
 
-/* Make sure the buttons are a reasonable size */
 .dialog-footer-buttons button {
-  min-width: 130px;  /* Increased minimum width to give more space */
-  padding: 10px 20px; /* More padding to make buttons appear larger */
+  min-width: 130px;
+  padding: 10px 20px;
   font-size: 1rem;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease; /* Smooth transition on hover */
+  transition: background-color 0.3s ease;
 }
 
-/* Custom styles for the 'Annuler' (Cancel) button */
 .btn-cancel {
-  background-color: #f44336; /* Red background */
+  background-color: #f44336;
   color: white;
   border: none;
   margin-right: 70px !important;
 }
 
 .btn-cancel:hover {
-  background-color: #e53935; /* Darker red on hover */
+  background-color: #e53935;
 }
 
-/* Custom styles for the 'Confirmer' (Confirm) button */
 .btn-confirm {
-  background-color: #4caf50; /* Green background */
+  background-color: #4caf50;
   color: white;
   border: none;
 }
 
 .btn-confirm:hover {
-  background-color: #388e3c; /* Darker green on hover */
+  background-color: #388e3c;
 }
+
 .quantity-dialog-content-horizontal {
   display: flex;
-  align-items: center;  /* Vertically align label and input */
-  gap: 10px;  /* Space between label and input */
+  align-items: center;
+  gap: 10px;
 }
 
 .quantity-dialog-content-horizontal .quantity-input {
-  width: 60px;  /* Adjust width as needed */
+  width: 60px;
 }
-/* Dialog Styling */
+
 p-dialog {
   .p-dialog-header {
     background-color: #f5f5f5;
