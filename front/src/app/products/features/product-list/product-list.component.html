@@ -1,0 +1,135 @@
+<h1 class="text-center">Liste des produits</h1>
+
+<p-button label="Créer produit" (onClick)="onCreate()" class="block text-center"/>
+
+<!-- Filter Section -->
+<div class="filters-container  mx-auto p-4 bg-white shadow-lg rounded-lg">
+
+  <!-- Filter by Name or Category -->
+  <div class="filter-item mb-4">
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="filterNameOrCategory"
+      placeholder="Filtrer par nom ou catégorie"
+      class="filter-input"
+    />
+  </div>
+
+  <!-- Filter by Price and Quantity -->
+  <div class="filter-item mb-4 flex space-x-4">
+    <input
+      type="number"
+      pInputText
+      [(ngModel)]="filterPrice"
+      placeholder="Filtrer par prix minimum"
+      class="filter-input"
+    />
+    <input
+      type="number"
+      pInputText
+      [(ngModel)]="filterQuantity"
+      placeholder="Filtrer par quantité minimum"
+      class="filter-input"
+    />
+
+    <select pInputText [(ngModel)]="filterInventoryStatus" class="filter-input">
+      <option value=""  disabled selected >Filtrer par statut de stock</option>
+      <option value="INSTOCK">En stock</option>
+      <option value="LOWSTOCK">Stock faible</option>
+      <option value="OUTOFSTOCK">Rupture de stock</option>
+    </select>
+  </div>
+</div>
+
+<!-- DataView with Pagination and Filtering -->
+<p-dataView #dv
+            [value]="filteredProducts"
+            [paginator]="true"
+            [rows]="pageSize"
+            [first]="first"
+            (onPage)="onPageChange($event)">
+  <ng-template pTemplate="list" let-products>
+    <div class="product-grid">
+      <div *ngFor="let product of products; trackBy: trackByFn">
+        <p-card class="block mb-2">
+          <!-- Category and Name -->
+          <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+          <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+
+          <!-- Description -->
+          <div class="text-sm text-600 mt-2" *ngIf="product.description">{{ product.description }}</div>
+
+          <!-- Price -->
+          <div class="text-lg font-medium mt-2">
+            <span class="text-primary">{{ product.price | currency:'USD' }}</span>
+          </div>
+
+          <!-- Inventory Status -->
+          <div class="text-sm mt-2" [ngClass]="{
+                      'text-success': product.inventoryStatus === 'INSTOCK',
+                      'text-warning': product.inventoryStatus === 'LOWSTOCK',
+                      'text-danger': product.inventoryStatus === 'OUTOFSTOCK'
+                  }">
+            {{ product.inventoryStatus }} ({{ product.quantity}})
+          </div>
+
+          <!-- Rating -->
+          <div class="flex gap-2 mt-2">
+            <span *ngFor="let star of [].constructor(5); let i = index">
+                <i class="pi" [ngClass]="{
+                   'pi-check-circle': i < product.rating,
+                   'pi-times-circle': i >= product.rating
+                }"></i>
+            </span>
+            ({{product.rating}}/5)
+          </div>
+
+          <!-- Footer Actions -->
+          <ng-template pTemplate="footer">
+            <div class="flex gap-3 mt-1">
+              <p-button label="Ajouter au panier" severity="info" [disabled]="product.quantity === 0" (onClick)="openQuantityDialog(product)"></p-button>
+              <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)"/>
+              <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" />
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    </div>
+  </ng-template>
+</p-dataView>
+
+<!-- Product Dialog -->
+<p-dialog [(visible)]="isDialogVisible"
+          [style]="{ width: '50vw' }"
+          header="Ajout/Edition produit">
+  <app-product-form
+    [product]="editedProduct()"
+    (save)="onSave($event)"
+    (cancel)="onCancel()"
+  />
+</p-dialog>
+
+<!-- Quantity Dialog -->
+<p-dialog [(visible)]="isQuantityDialogVisible"
+          [style]="{ width: '30vw' }"
+          header="Modifier la quantité"
+          [modal]="true"
+          [closable]="false">
+
+  <!-- Dialog Content -->
+  <div class="quantity-dialog-content-horizontal">
+    <label for="quantity" class="quantity-label">Quantité :</label>
+    <input type="number" id="quantity" [(ngModel)]="quantity" pInputText min="1" class="quantity-input"/>
+  </div>
+
+  <!-- Dialog Footer with Buttons -->
+  <p-footer>
+    <div class="dialog-footer-buttons">
+      <button pButton label="Annuler" icon="pi pi-times" (click)="closeQuantityDialog()" class="p-button-text btn-cancel" ></button>
+      <button pButton label="Confirmer" icon="pi pi-check" (click)="confirmAddToCart()" class="p-button-text btn-confirm"></button>
+    </div>
+  </p-footer>
+
+</p-dialog>
+<p-toast></p-toast>

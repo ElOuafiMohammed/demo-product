@@ -1,0 +1,270 @@
+:host {
+    display: block;
+    height: 100%;
+    overflow: auto;
+}
+
+/* Example styles */
+.text-success {
+  color: green;
+}
+
+.text-warning {
+  color: orange;
+}
+
+.text-danger {
+  color: red;
+}
+
+.pi {
+  font-size: 1.2rem;
+  color: #f39c12;
+}
+
+
+
+
+/* Grid layout for 2 products per row */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
+  gap: 12px; /* Further reduced space between cards */
+}
+
+.product-grid .p-card {
+  box-sizing: border-box;
+  width: 100%; /* Ensure cards take full width within the grid cell */
+}
+
+/* Adjust the grid for smaller screens (optional for responsiveness) */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr; /* 1 column on smaller screens */
+  }
+}
+
+/* General styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Title */
+.text-center {
+  text-align: center;
+}
+
+.mb-6 {
+  margin-bottom: 1rem;
+}
+
+.text-3xl {
+  font-size: 1.25rem; /* Reduced font size for titles */
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-gray-800 {
+  color: #333;
+}
+
+/* Container for filters */
+.filters-container {
+  gap: 0.25rem;
+  width: 100%;
+  max-width: 700px; /* Reduced max-width of the filter container */
+  margin: 0 auto;
+  padding: 1rem; /* Reduced padding */
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0px;
+}
+
+p-dataView {
+  margin-top: 0; /* Remove any default margin */
+  padding-top: 0; /* Ensure no extra padding */
+}
+/* Input field styles */
+.filter-input {
+  width: 100%;
+  padding: 6px 8px; /* Smaller padding */
+  font-size: 0.85rem; /* Smaller font size */
+  border: 1px solid #ddd;
+  border-radius: 4px; /* Even smaller border radius */
+  background-color: #f9f9f9;
+  transition: all 0.2s ease;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+}
+
+/* Button Custom Styling */
+.create-button {
+  width: 100%;
+  max-width: 220px; /* Further reduced max width */
+  background-color: #00aaff;
+  border: none;
+  border-radius: 20px; /* Smaller border radius */
+  padding: 8px 14px; /* Smaller padding */
+  font-size: 14px; /* Smaller font size */
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.create-button:hover {
+  background-color: #0088cc;
+  cursor: pointer;
+}
+
+.p-button-rounded {
+  border-radius: 25px;
+}
+
+.p-button-info {
+  background-color: #00aaff;
+  border: none;
+}
+
+/* Flexbox Layout for Multiple Inputs */
+.flex {
+  display: flex;
+}
+
+.space-x-4 {
+  gap: 0.6rem; /* Reduced space between inputs */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .filters-container {
+    max-width: 100%; /* Full width on mobile */
+    padding: 0.75rem; /* Reduced padding for mobile */
+  }
+
+  .flex {
+    flex-direction: column;
+  }
+
+  .filter-input {
+    margin-bottom: 0.6rem; /* Smaller margin between inputs */
+  }
+
+  .filter-item {
+    margin-bottom: 0.5rem; /* Smaller vertical margin */
+  }
+}
+
+
+
+
+/* Centering the content and styling the input field */
+/* Ensure proper centering of content in the horizontal dialog container */
+.quantity-dialog-content-horizontal {
+  display: flex;
+  justify-content: center;  /* Center items horizontally */
+  align-items: center;      /* Center items vertically */
+  gap: 10px;                /* Space between label and input */
+}
+
+/* Style for label to ensure proper alignment */
+.quantity-label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;  /* Center the text of the label */
+  margin: 0;  /* Remove any margin to avoid misalignment */
+}
+
+/* Style for input field */
+.quantity-input {
+  width: 60px;  /* Adjust width to fit your design */
+  text-align: center;  /* Center text inside the input */
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  outline: none;
+  display: block;
+  margin: 0; /* Remove default margin */
+}
+
+.quantity-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+/* Styling for footer buttons */
+.dialog-footer-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px; /* Increased the gap between the buttons */
+  padding: 10px 20px;
+}
+
+/* Make sure the buttons are a reasonable size */
+.dialog-footer-buttons button {
+  min-width: 130px;  /* Increased minimum width to give more space */
+  padding: 10px 20px; /* More padding to make buttons appear larger */
+  font-size: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Custom styles for the 'Annuler' (Cancel) button */
+.btn-cancel {
+  background-color: #f44336; /* Red background */
+  color: white;
+  border: none;
+  margin-right: 70px !important;
+}
+
+.btn-cancel:hover {
+  background-color: #e53935; /* Darker red on hover */
+}
+
+/* Custom styles for the 'Confirmer' (Confirm) button */
+.btn-confirm {
+  background-color: #4caf50; /* Green background */
+  color: white;
+  border: none;
+}
+
+.btn-confirm:hover {
+  background-color: #388e3c; /* Darker green on hover */
+}
+.quantity-dialog-content-horizontal {
+  display: flex;
+  align-items: center;  /* Vertically align label and input */
+  gap: 10px;  /* Space between label and input */
+}
+
+.quantity-dialog-content-horizontal .quantity-input {
+  width: 60px;  /* Adjust width as needed */
+}
+/* Dialog Styling */
+p-dialog {
+  .p-dialog-header {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .p-dialog-content {
+    padding: 15px;
+  }
+}
